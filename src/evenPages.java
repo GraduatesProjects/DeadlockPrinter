@@ -18,7 +18,9 @@ public class evenPages extends Thread {
     public void run() {
         for (int i = 2; i <= maxNumberTobePrint; i = i + 2) {
             try {
-                dip.printEvenNumber(i);
+                ThreadLocal<Page> TLPage = new ThreadLocal<>();
+                TLPage.set(new Page(i));
+                dip.printEvenNumber(TLPage);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

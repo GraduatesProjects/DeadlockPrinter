@@ -10,28 +10,24 @@ public class implementsPrinter {
 
     /**
      * Method for printing even numbers
+     * this is synced
      *
-     * @param num
+     *
      */
-    public void printEvenNumber(int num) {
-        try {
-            evenSemaphore.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(num);
+
+    public void printEvenNumber(ThreadLocal<Page>page) throws InterruptedException {
+
+        evenSemaphore.acquire();
+            System.out.println(page.get().toString());
         oddSemaphore.release();
     }
 
     // Method for printing odd numbers
-    public void printOddNum(int num) {
-        try {
-            oddSemaphore.acquire();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println(num);
+    public void printOddNum(ThreadLocal<Page> page)throws InterruptedException {
+
+        oddSemaphore.acquire();
+            System.out.println(page.get().toString());
         evenSemaphore.release();
     }
+
 }

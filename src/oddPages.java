@@ -4,13 +4,14 @@ public class oddPages extends Thread {
     DeadlockPrinter dprinter;
     int maxNumberTobePrint;
 
+
     oddPages(implementsPrinter ip, int index) {
         this.printer = ip;
         this.maxNumberTobePrint = index;
     }
 
     oddPages(DeadlockPrinter ip, int index) {
-        this.dprinter = ip;
+        this.dprinter=ip;
         this.maxNumberTobePrint = index;
     }
 
@@ -18,10 +19,14 @@ public class oddPages extends Thread {
     public void run() {
         for (int i = 1; i <= maxNumberTobePrint; i = i + 2) {
             try {
-                dprinter.printOddNum(i);
+                ThreadLocal<Page> TLPage = new ThreadLocal<>();
+                TLPage.set(new Page(i));
+                dprinter.printOddNum(TLPage);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
 }
